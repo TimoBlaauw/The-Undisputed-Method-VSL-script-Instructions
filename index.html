@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSL Package — The Undisputed Method</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:#09090B;color:#B8B8BD;
+  line-height:1.75;font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+:root{
+  --bg:#09090B;--card:#111113;--card-border:#1E1E22;
+  --text:#B8B8BD;--text-dim:#6B6B73;--white:#F0F0F2;
+  --primary:#C8A84E;--secondary:#111111;--accent:#C30000;
+  --gold:#C8A84E;--gold-bright:#D4B961;--gold-dim:rgba(200,168,78,.12);
+  --red:#C30000;
+  --max-w:900px;--radius:12px;
+}
+img{max-width:100%;display:block}
+a{color:var(--gold);text-decoration:none;transition:color .2s}
+a:hover{color:var(--gold-bright)}
+
+/* Typography */
+h1,h2,h3,h4{font-family:'Oswald','Inter',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.03em;color:var(--white);line-height:1.15}
+h1{font-size:clamp(32px,5vw,52px);margin-bottom:16px}
+h2{font-size:clamp(24px,3.5vw,36px);margin-bottom:12px}
+h3{font-size:clamp(18px,2.5vw,24px);margin-bottom:8px}
+h4{font-size:16px;letter-spacing:.08em;color:var(--gold);margin-bottom:4px;font-weight:500}
+
+.eyebrow{
+  font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;
+  letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+  display:inline-block;margin-bottom:12px;
+}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.divider{width:50px;height:2px;background:var(--gold);margin:0 auto 32px;border-radius:1px;opacity:.5}
+.text-center{text-align:center}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:16px 36px;border-radius:8px;border:none;cursor:pointer;
+  transition:all .25s;text-decoration:none;
+}
+.btn-gold{background:var(--gold);color:#000;box-shadow:0 0 24px rgba(200,168,78,.15)}
+.btn-gold:hover{background:var(--gold-bright);color:#000;box-shadow:0 0 32px rgba(200,168,78,.25);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--white);border:1.5px solid var(--card-border)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn svg{width:18px;height:18px;fill:currentColor;flex-shrink:0}
+
+/* Hero */
+.hero{
+  padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--card-border);
+}
+.hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 50% 20%,rgba(200,168,78,.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero .container{position:relative;z-index:1}
+.hero-logo{height:40px;width:auto;margin:0 auto 40px;opacity:.7;filter:brightness(0) invert(1)}
+.hero h1 .gold{color:var(--gold)}
+.hero-desc{font-size:17px;color:var(--text);max-width:640px;margin:0 auto 40px;line-height:1.8}
+.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* Sections */
+.section{padding:80px 24px;border-bottom:1px solid var(--card-border)}
+.section-dark{background:var(--card)}
+.section-intro{max-width:680px;margin:0 auto 48px;text-align:center}
+.section-intro p{color:var(--text);font-size:16px;line-height:1.8}
+
+/* Info Cards */
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:36px}
+.info-card{
+  background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
+  padding:28px 24px;transition:border-color .3s;
+}
+.info-card:hover{border-color:rgba(200,168,78,.2)}
+.info-card h4{margin-bottom:8px}
+.info-card p{font-size:14px;line-height:1.7;color:var(--text-dim)}
+
+/* Script Sections */
+.script-block{
+  background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
+  padding:36px 32px;margin-bottom:24px;position:relative;overflow:hidden;
+}
+.script-block::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+  background:var(--gold);opacity:.4;border-radius:2px;
+}
+.script-header{
+  display:flex;align-items:center;gap:16px;margin-bottom:20px;
+  padding-bottom:16px;border-bottom:1px solid var(--card-border);
+}
+.script-badge{
+  font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;
+  background:var(--gold-dim);color:var(--gold);
+  padding:5px 14px;border-radius:6px;white-space:nowrap;
+  border:1px solid rgba(200,168,78,.15);
+}
+.script-time{font-family:'Oswald',sans-serif;font-size:13px;color:var(--text-dim);letter-spacing:1px}
+.script-title{font-family:'Oswald',sans-serif;font-size:20px;color:var(--white);letter-spacing:.05em;text-transform:uppercase}
+.direction{
+  font-size:13px;color:var(--gold);opacity:.7;font-style:italic;
+  margin:16px 0 8px;padding:6px 12px;
+  background:rgba(200,168,78,.04);border-radius:6px;border-left:2px solid rgba(200,168,78,.2);
+  display:inline-block;
+}
+.script-body p{margin-bottom:14px;font-size:15px;line-height:1.8;color:var(--text)}
+.script-body p:last-child{margin-bottom:0}
+.script-body .emphasis{color:var(--white);font-weight:600}
+.script-body ul{margin:12px 0;padding-left:20px}
+.script-body ul li{margin-bottom:6px;font-size:15px;color:var(--text)}
+.script-body ul li::marker{color:var(--gold)}
+.script-body blockquote{
+  margin:16px 0;padding:16px 20px;
+  background:rgba(200,168,78,.03);border:1px solid rgba(200,168,78,.08);
+  border-radius:8px;font-style:italic;color:var(--white);font-size:15px;line-height:1.7;
+}
+.script-body .testimonial-name{
+  display:block;margin-top:8px;font-style:normal;
+  font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--gold);opacity:.7;
+}
+
+/* Filming Instructions */
+.filming-category{
+  background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
+  padding:32px 28px;margin-bottom:20px;
+}
+.filming-category h3{font-size:18px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.filming-category h3 .cat-icon{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--gold-dim);border:1px solid rgba(200,168,78,.15);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:16px;flex-shrink:0;
+}
+.filming-list{list-style:none;padding:0}
+.filming-list li{
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.03);
+  font-size:14px;color:var(--text);display:flex;align-items:flex-start;gap:10px;
+}
+.filming-list li:last-child{border-bottom:none}
+.filming-list li::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--gold);opacity:.4;flex-shrink:0;margin-top:8px;
+}
+.filming-table{width:100%;border-collapse:collapse;margin-top:8px}
+.filming-table td{padding:8px 12px;font-size:14px;border-bottom:1px solid rgba(255,255,255,.03)}
+.filming-table td:first-child{color:var(--white);font-weight:500;white-space:nowrap;width:40%}
+.filming-table td:last-child{color:var(--text-dim)}
+
+/* Closing */
+.closing{padding:80px 24px;text-align:center}
+.closing-inner{
+  max-width:640px;margin:0 auto;
+  background:var(--card);border:1px solid var(--card-border);border-radius:16px;
+  padding:48px 40px;
+}
+.closing-inner p{font-size:15px;line-height:1.8;color:var(--text);margin-bottom:20px}
+.closing-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+
+/* Footer */
+.footer{padding:32px 24px;text-align:center;border-top:1px solid var(--card-border)}
+.footer p{font-size:12px;color:var(--text-dim)}
+
+/* Responsive */
+@media(max-width:700px){
+  .info-grid{grid-template-columns:1fr}
+  .hero{padding:80px 16px 60px}
+  .section{padding:60px 16px}
+  .script-block{padding:24px 20px}
+  .hero-buttons{flex-direction:column;align-items:center}
+  .hero-buttons .btn{width:100%;justify-content:center}
+  .closing-inner{padding:32px 24px}
+  .closing-buttons{flex-direction:column;align-items:center}
+  .closing-buttons .btn{width:100%;justify-content:center}
+  .filming-table td:first-child{width:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="container">
+    <img src="data:image/png;base64,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" alt="The Undisputed Method" class="hero-logo">
+    <span class="eyebrow">Tyjani Beztati</span>
+    <h1>Your VSL <span class="gold">Package</span></h1>
+    <p class="hero-desc">Everything you need to produce a high-converting Video Sales Letter for your landing page. This package includes your complete VSL script and detailed filming instructions — ready for production.</p>
+  </div>
+</section>
+
+<!-- ═══════════ WHAT IS A VSL ═══════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="eyebrow">Strategy</span>
+      <h2>What Is a VSL &amp; Why It Matters</h2>
+      <div class="divider"></div>
+      <p>A Video Sales Letter (VSL) is a strategically scripted video that lives on your landing page. It bridges the gap between your ad and your offer — turning cold traffic into warm, informed prospects ready to take action.</p>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Bridges Ad &rarr; Page</h4>
+        <p>The VSL picks up where your ad leaves off. It continues the conversation, deepens the hook, and moves the visitor from curiosity to clarity about what you offer and why it matters.</p>
+      </div>
+      <div class="info-card">
+        <h4>Builds Trust &amp; Authority</h4>
+        <p>Seeing you speak on camera, share your story, and demonstrate real proof creates a level of trust that text alone cannot achieve. It positions you as the credible expert.</p>
+      </div>
+      <div class="info-card">
+        <h4>Creates Buying Intent</h4>
+        <p>The VSL systematically addresses objections, stacks value, and builds desire — so by the time the viewer reaches your CTA, the decision feels like a natural next step.</p>
+      </div>
+      <div class="info-card">
+        <h4>Prepares for the Call</h4>
+        <p>Prospects who watch the VSL arrive on your sales call already educated, pre-sold, and emotionally invested. This dramatically increases your close rate and reduces friction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VSL SCRIPT ═══════════ -->
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-intro">
+      <span class="eyebrow">Deliverable 01</span>
+      <h2>VSL Script</h2>
+      <div class="divider"></div>
+      <p>The complete word-for-word script for your Video Sales Letter. It follows a proven direct-response structure: hook, problem, solution, proof, system breakdown, objection handling, and call to action. Each section includes direction notes for filming.</p>
+    </div>
+
+    <!-- HOOK -->
+    <div class="script-block">
+      <div class="script-header">
+        <span class="script-badge">Hook</span>
+        <span class="script-time">0:00 – 0:15</span>
+      </div>
+      <div class="script-body">
+        <p class="direction">[Tyjani speaking directly to camera in the gym]</p>
+        <p>I'm Tyjani Beztati, six-time GLORY Lightweight World Champion and professional MMA fighter.</p>
+        <p>I'm going to show you the exact system I used to build this body — and <span class="emphasis">guarantee you lose 10–20 pounds of body fat in 90 days, or you don't pay.</span></p>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="script-block">
+      <div class="script-header">
+        <span class="script-badge">Problem</span>
+        <span class="script-time">0:15 – 0:45</span>
+      </div>
+      <div class="script-body">
+        <p class="direction">[B-roll: Frustrated men training inconsistently, scrolling through fitness apps, looking tired]</p>
+        <p>If you're a man who wants to get in shape, perform better, and feel more confident — but you're stuck jumping between random workouts, inconsistent diets, and generic plans that don't work — you already know the problem.</p>
+        <p><span class="emphasis">You lack structure. You lack discipline. You lack real guidance and accountability.</span></p>
+        <p>And because of that, you stay stuck. Frustrated. Far from your true potential.</p>
+      </div>
+    </div>
+
+    <!-- SOLUTION -->
+    <div class="script-block">
+      <div class="script-header">
+        <span class="script-badge">Solution</span>
+        <span class="script-time">0:45 – 1:30</span>
+      </div>
+      <div class="script-body">
+        <p class="direction">[B-roll: Tyjani training intensely, hitting pads, sparring, lifting weights]</p>
+        <p>Here's what most men don't understand: getting in elite shape isn't about motivation or following some influencer's 30-day challenge.</p>
+        <p>It's about having a <span class="emphasis">PROVEN SYSTEM</span> — one that's been tested at the highest level of combat sports — and having someone who's actually lived it guide you through it.</p>
+        <p><span class="emphasis">That's The Undisputed Method.</span></p>
+        <p class="direction">[B-roll: Tyjani fighting in GLORY, winning championships, celebrating victories]</p>
+        <p>This is the exact system I used to become a six-time GLORY Lightweight World Champion and professional MMA fighter. Not theory. The real blueprint I followed to build a championship-level body, mindset, and discipline.</p>
+        <p class="direction">[Cut to Tyjani speaking directly to camera]</p>
+        <p>You can't build an elite body by following random plans or hiring a trainer who's never competed at a high level. Those people are guessing. I'm not.</p>
+        <p>I've lived this system at the absolute pinnacle of combat sports — where your body, discipline, and mental toughness are tested against the best in the world.</p>
+        <p>If you want real results, you need a real system built by someone who's actually done it.</p>
+      </div>
+    </div>
+
+    <!-- PROOF -->
+    <div class="script-block">
+      <div class="script-header">
+        <span class="script-badge">Proof</span>
+        <span class="script-time">1:30 – 2:30</span>
+      </div>
+      <div class="script-body">
+        <p class="direction">[B-roll: Tyjani's championship fights, training montages, physique shots]</p>
+        <p>If this system can take someone to the absolute pinnacle of combat sports, it can absolutely help you shred body fat, optimize performance, and build an elite mindset.</p>
+        <p>But don't just take my word for it.</p>
+        <p class="direction">[B-roll: Client training footage]</p>
+        <blockquote>
+          "I lost 18 pounds in 90 days. I built strength and discipline I didn't know I had. This is the first program that actually worked for me."
+          <span class="testimonial-name">John, 38</span>
+        </blockquote>
+        <blockquote>
+          "I dropped from 22% to 14% body fat. I'd tried everything before this — apps, trainers, diets. Nothing stuck until I followed a system built by someone who'd actually achieved what I wanted."
+          <span class="testimonial-name">Mike, 42</span>
+        </blockquote>
+        <blockquote>
+          "I went from inconsistent training to never missing a workout. My confidence in business skyrocketed. The discipline I built in the gym carried over into every other area of my life."
+          <span class="testimonial-name">Chris, 35</span>
+        </blockquote>
+        <p class="direction">[Cut to Tyjani speaking directly to camera]</p>
+        <p>These are real men with jobs, families, and busy lives. They followed the system, and it worked.</p>
+        <p><span class="emphasis">Here's what you'll achieve in the first 90 days:</span></p>
+        <p class="direction">[B-roll: Training montages, meal prep, progress tracking]</p>
+        <ul>
+          <li>Lose 10–20 pounds of body fat while maintaining or building muscle</li>
+          <li>Increase strength and athletic performance significantly</li>
+          <li>Develop consistent training and nutrition habits that stick</li>
+          <li>Build mental discipline and confidence that carries into every area of life</li>
+        </ul>
+        <p>This isn't just about looking better. It's about <span class="emphasis">BECOMING</span> better.</p>
+      </div>
+    </div>
+
+    <!-- SYSTEM BREAKDOWN -->
+    <div class="script-block">
+      <div class="script-header">
+        <span class="script-badge">System</span>
+        <span class="script-time">2:30 – 3:30</span>
+      </div>
+      <div class="script-body">
+        <p class="direction">[B-roll: Tyjani reviewing training programs on tablet, working with clients]</p>
+        <p><span class="emphasis">Here's exactly how The Undisputed Method works:</span></p>
+        <p class="direction">[B-roll: Client using training app, following workout]</p>
+        <p><span class="emphasis">First,</span> I build you a personalized training program tailored to YOUR goals, YOUR schedule, and YOUR current fitness level. Custom 12-week program delivered through a professional app with exercise videos and weekly adjustments.</p>
+        <p class="direction">[B-roll: Meal prep, nutrition planning, healthy meals]</p>
+        <p><span class="emphasis">Second,</span> I create a personalized nutrition plan that fits YOUR lifestyle. Macro calculations, meal timing, flexible eating strategies — no restrictive diets. Weekly adjustments based on your progress.</p>
+        <p class="direction">[B-roll: Client taking progress photos, measurements, checking in]</p>
+        <p><span class="emphasis">Third,</span> we do weekly check-ins. You send me your progress — weight, measurements, photos, how you're feeling. I review everything and adjust your plan in real-time. Real accountability.</p>
+        <p class="direction">[B-roll: Tyjani responding to messages, giving feedback]</p>
+        <p><span class="emphasis">Fourth,</span> you get direct 1:1 support. Unlimited messaging access. Form checks. Troubleshooting. You're never left guessing.</p>
+        <p class="direction">[B-roll: Tyjani training, meditating, visualizing]</p>
+        <p><span class="emphasis">Fifth,</span> I teach you the same mindset and discipline principles I used to become a world champion. Goal-setting, visualization, habit-building. This is what makes the transformation stick.</p>
+        <p class="direction">[B-roll: Group training sessions, community events, men supporting each other]</p>
+        <p>And finally, you join a private community of serious, committed men. Support, accountability, brotherhood.</p>
+        <p class="direction">[Cut to Tyjani speaking directly to camera]</p>
+        <p><span class="emphasis">This is the full system.</span> Training. Nutrition. Recovery. Mindset. Accountability. Community.</p>
+        <p>Everything you need to become the fittest, strongest, most disciplined version of yourself.</p>
+      </div>
+    </div>
+
+    <!-- OBJECTION HANDLING -->
+    <div class="script-block">
+      <div class="script-header">
+        <span class="script-badge">Objections</span>
+        <span class="script-time">3:30 – 4:00</span>
+      </div>
+      <div class="script-body">
+        <p class="direction">[B-roll: Tyjani training efficiently, checking watch]</p>
+        <p>Now, you might be thinking — "Tyjani, I don't have time for this. I'm busy."</p>
+        <p>I get it. But here's the thing: if you have 4–5 hours per week, you have time.</p>
+        <p class="direction">[B-roll: Tyjani working, spending time with family, living balanced life]</p>
+        <p>And the discipline you build in those 4–5 hours? It makes you MORE productive in every other area of your life.</p>
+        <p class="direction">[B-roll: Client transformation before/after]</p>
+        <p>You might also be thinking — "I've tried other programs and failed."</p>
+        <p>Good. That means you know what doesn't work.</p>
+        <p class="direction">[B-roll: Tyjani training clients, giving guidance]</p>
+        <p>This is different. This is a proven system built by someone who's lived it at the highest level. If you follow it, it works.</p>
+        <p class="direction">[B-roll: Regular personal trainers in commercial gyms vs. Tyjani fighting in GLORY]</p>
+        <p>And if you're wondering how this is different from hiring a regular trainer — regular trainers haven't built a championship-level body. They haven't competed at the highest level. They haven't lived the system they're teaching.</p>
+        <p class="direction">[Cut to Tyjani speaking directly to camera]</p>
+        <p><span class="emphasis">I have. That's the difference.</span></p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="script-block">
+      <div class="script-header">
+        <span class="script-badge">CTA</span>
+        <span class="script-time">4:00 – 4:30</span>
+      </div>
+      <div class="script-body">
+        <p class="direction">[Tyjani speaking directly to camera in the gym]</p>
+        <p>If you're serious about becoming the fittest, strongest, most disciplined version of yourself — and you're ready to follow a proven system built by someone who's actually done it — here's what to do next:</p>
+        <p><span class="emphasis">Click the button below and schedule a call with me directly.</span></p>
+        <p>On that call, we'll discuss your current situation and goals. I'll show you exactly what the program will look like for YOU. And we'll cover the investment and what results you can realistically expect.</p>
+        <p class="direction">[B-roll: Limited spots graphic, urgency visual]</p>
+        <p>But here's the thing — I only take on 10 new clients per month because this is real 1:1 coaching, not a mass-market program.</p>
+        <p class="direction">[Cut back to Tyjani speaking directly to camera]</p>
+        <p>If you're serious, book your call now before spots fill up.</p>
+        <p>If you're looking for quick fixes and motivation videos, this isn't for you.</p>
+        <p>But if you're ready to level up and become the man you know you can be, let's talk.</p>
+        <p class="direction">[B-roll: Tyjani training, fighting, celebrating victories, living his best life]</p>
+        <p><span class="emphasis">Click the button. Schedule the call. Let's get to work.</span></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ FILMING INSTRUCTIONS ═══════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="eyebrow">Deliverable 02</span>
+      <h2>Filming Instructions</h2>
+      <div class="divider"></div>
+      <p>Detailed production notes for your video team. This covers all required B-roll footage, direct-to-camera moments, client testimonial specs, music direction, and pacing guidance — everything needed to execute the VSL script above.</p>
+    </div>
+
+    <!-- B-Roll -->
+    <div class="filming-category">
+      <h3><span class="cat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+      </span>Required B-Roll Footage</h3>
+      <ul class="filming-list">
+        <li>Tyjani training — pad work, sparring, strength training, conditioning</li>
+        <li>Tyjani in GLORY fights — championship moments, victories</li>
+        <li>Tyjani's physique — shirtless training shots, body composition</li>
+        <li>Client training footage — various exercises, intensity levels</li>
+        <li>Client transformation photos — before/after comparisons</li>
+        <li>Meal preparation — meal prep, healthy food, planning</li>
+        <li>Progress tracking — measurements, photos, check-ins</li>
+        <li>Community moments — group training, support, camaraderie</li>
+        <li>Lifestyle shots — Tyjani with family, working, balanced life</li>
+        <li>Urgency visuals — limited spots, countdown, scarcity</li>
+      </ul>
+    </div>
+
+    <!-- Direct-to-Camera -->
+    <div class="filming-category">
+      <h3><span class="cat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+      </span>Direct-to-Camera Moments</h3>
+      <table class="filming-table">
+        <tr><td>Hook</td><td>0:00 – 0:15 &middot; Continuous single take, chest-up framing, direct eye contact with the lens. Record in the gym with equipment visible in the background. Use a 50mm or 85mm lens at f/1.8–2.8 for shallow depth of field. Natural gym lighting supplemented with a key light at 45 degrees.</td></tr>
+        <tr><td>Solution Explanation</td><td>0:45 – 1:30 &middot; Record this as one continuous take — same gym setting and framing as the hook. You deliver the full segment to camera without stopping. We'll cut away to B-roll over specific lines (marked in the script) and cut back to you in post. Keep the same camera position and lighting so the cuts back feel seamless.</td></tr>
+        <tr><td>Transition to Proof</td><td>1:30 – 2:30 &middot; Record as one continuous take, same setup. You speak the bridging lines to camera. We'll intercut with client testimonial clips and B-roll in post, then cut back to you for the closing lines of this section.</td></tr>
+        <tr><td>System Conclusion</td><td>2:30 – 3:30 &middot; Record as one continuous take, same gym setup. You deliver the wrap-up lines directly to camera with confident, slower pacing. We'll intercut with B-roll showing each system component (app, meals, check-ins, messaging, community) during the edit.</td></tr>
+        <tr><td>Objection Handling Close</td><td>3:30 – 4:00 &middot; Record as one continuous take, same gym setup. Conversational tone — speak as if you're addressing one person directly. Slightly tighter framing (head and shoulders) to create intimacy. We'll add B-roll cutaways over the objection examples in post.</td></tr>
+        <tr><td>Full CTA</td><td>4:00 – 4:30 &middot; Continuous single take, no B-roll interruptions. Same gym setting as the hook for visual bookending. Confident, direct energy — look straight into the lens the entire time. Slightly wider framing to include your upper body and convey authority. This is the most important segment — record at least 5 takes so we can pick the best delivery.</td></tr>
+      </table>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="filming-category">
+      <h3><span class="cat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </span>Client Testimonials</h3>
+      <table class="filming-table">
+        <tr><td>John, 38</td><td>10 – 15 seconds</td></tr>
+        <tr><td>Mike, 42</td><td>10 – 15 seconds</td></tr>
+        <tr><td>Chris, 35</td><td>10 – 15 seconds</td></tr>
+      </table>
+    </div>
+
+    <!-- Music -->
+    <div class="filming-category">
+      <h3><span class="cat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </span>Music Direction</h3>
+      <ul class="filming-list">
+        <li>Intense, motivating, building energy throughout</li>
+        <li>Calmer and more grounded during testimonial segments</li>
+        <li>Peak intensity during the CTA closing section</li>
+      </ul>
+    </div>
+
+    <!-- Tempo -->
+    <div class="filming-category">
+      <h3><span class="cat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </span>Editing Tempo</h3>
+      <ul class="filming-list">
+        <li>Fast, punchy cuts during the problem section</li>
+        <li>Slower, more powerful cuts during the proof section</li>
+        <li>Dynamic pacing during the system breakdown</li>
+        <li>Confident, direct pacing during the CTA</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ CLOSING ═══════════ -->
+<section class="closing">
+  <div class="container">
+    <div class="closing-inner">
+      <span class="eyebrow">Next Step</span>
+      <h2>Plan a <span style="color:var(--gold)">Strategy Call</span></h2>
+      <p>Your VSL script and filming instructions are ready. This is one piece of the full client acquisition system we're building for you — including your landing page, ad creatives, funnel, and conversion strategy.</p>
+      <p>Book a strategy session so we can walk through the entire system together and get you launched as fast and efficiently as possible.</p>
+      <div class="closing-buttons">
+        <a href="https://traffictotalks.nl/strategie-sessie/" class="btn btn-gold" target="_blank">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          Plan a Strategy Call
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <p>Prepared for Tyjani Beztati &middot; The Undisputed Method &middot; 2026</p>
+</footer>
+
+</body>
+</html>
